@@ -1,4 +1,5 @@
 import ErrorFactory from '../ErrorFactory';
+import { fetch as fetchPolyfill } from 'whatwg-fetch'
 
 const types = {
   default: 'default',
@@ -7,23 +8,34 @@ const types = {
 
 class Reporter {
   constructor({ backend = null }) {
-    if (!window) {
-      throw Error('Reporter must see window object');
-    }
+    if (!window) throw Error('Reporter must see window object');
     this.backend = backend;
+
     this.mountWatcher();
   }
 
-  mountWatcher = () => {
-    window.onerror = function(errMsg, url, lineNumber) {
-      const error = ErrorFactory.create({ errMsg, url, lineNumber }, types.default);
-      console.log(error.info);
+  isBackendExists = async () => {
+    try {
+      const response = await fetchPolyfill(`${this.backend}/api/v1/init`);
+      const result = await response.json();
+      return result.status === 'OK';
+    } catch (e) {
+      return false;
     }
   }
 
-  report = message => {
-    const error = ErrorFactory.create(message, types.custom);
+  generateError = (message, type) => {
+    const error = ErrorFactory.create(message, type);
     console.log(error.info);
+    return error;
+  }
+
+  report = message => this.generateError(message, types.custom);
+
+  mountWatcher = async () => {
+    const backendExists = await this.isBackendExists();
+    if (!backendExists) return false;
+    window.onerror = (errMsg, url, lineNumber) => this.generateError({ errMsg, url, lineNumber }, types.default);
   }
 }
 

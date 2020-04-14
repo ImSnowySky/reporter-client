@@ -30,6 +30,8 @@
   },
   "browserslist": "> 0.25%, not dead",
   "dependencies": {
-    "bowser": "^2.9.0"
+    "babel-polyfill": "^6.26.0",
+    "bowser": "^2.9.0",
+    "whatwg-fetch": "^3.0.0"
   }
 }

@@ -10,16 +10,9 @@
 </body>
 <script src="./bundle.js"></script>
 <script>
-  window.Reporter = new Reporter({
-    backend: '/',
+  window.reporter = new Reporter({
+    backend: 'http://localhost:5000',
   });
-</script>
-<script>
-  setTimeout(function() {
-   nothing()
-  }, 0);
-  setTimeout(function() {
-    window.Reporter.report('hello');
-  }, 1000)
+  window.setTimeout(() => nothing(), 500);
 </script>
 </html>
