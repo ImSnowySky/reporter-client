@@ -20,13 +20,21 @@ class Reporter {
       const result = await response.json();
       return result.status === 'OK';
     } catch (e) {
+      console.error('Reporter backend is not exists');
       return false;
     }
   }
 
   generateError = (message, type) => {
     const error = ErrorFactory.create(message, type);
-    console.log(error.info);
+    fetchPolyfill(`${this.backend}/api/v1/error`, {
+      method: 'POST',
+      withCredentials: 'omit',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: error.info,
+    });
     return error;
   }
 

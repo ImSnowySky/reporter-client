@@ -4,10 +4,7 @@ class CustomErrorReport extends ErorrReport {
   constructor(message) {
     super();
     this._private = { };
-    this._private.meta = {
-      url: window.location.href,
-      errMsg: message,
-    };
+    this._private.meta = { url: window.location.href, message, line_number: 0 };
   }
 
   getMetaInfo = () => this._private.meta;
@@ -16,7 +13,8 @@ class CustomErrorReport extends ErorrReport {
     ...this.getUA(),
     ...this.getBrowserInfo(),
     ...this.getMetaInfo(),
-    custom: true,
+    ...this.getDisplayInfo(),
+    type: 'custom',
   });
 }
 

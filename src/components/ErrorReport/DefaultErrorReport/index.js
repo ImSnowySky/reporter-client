@@ -4,7 +4,7 @@ class DefaultErrorReport extends ErorrReport {
   constructor({ url, lineNumber, errMsg }) {
     super();
     this._private = { };
-    this._private.meta = { url, lineNumber, errMsg };
+    this._private.meta = { url, line_number: lineNumber, message: errMsg };
   }
 
   getMetaInfo = () => this._private.meta;
@@ -13,7 +13,8 @@ class DefaultErrorReport extends ErorrReport {
     ...this.getUA(),
     ...this.getBrowserInfo(),
     ...this.getMetaInfo(),
-    custom: false,
+    ...this.getDisplayInfo(),
+    type: 'error',
   });
 }
 
