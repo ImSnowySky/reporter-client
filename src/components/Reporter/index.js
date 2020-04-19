@@ -29,11 +29,11 @@ class Reporter {
     const error = ErrorFactory.create(message, type);
     fetchPolyfill(`${this.backend}/api/v1/error`, {
       method: 'POST',
-      withCredentials: 'omit',
+      credentials: 'origin',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: error.info,
+      body: JSON.stringify(error.info),
     });
     return error;
   }
