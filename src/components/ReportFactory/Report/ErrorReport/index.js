@@ -1,0 +1,24 @@
+import Report from '../index';
+import types from '../../../../shared/reportTypes';
+
+class ErrorReport extends Report {
+  constructor({ info, user }) {
+    super({ info, user });
+  }
+
+  getErrorInfo = () => ({
+    url: this.info.url,
+    line_number: this.info.line_number,
+    message: this.info.errMsg,
+  })
+
+  getSummaryError = () => ({
+    ...this.getUA(),
+    ...this.getBrowserInfo(),
+    ...this.getDisplayInfo(),
+    ...this.getErrorInfo(),
+    type: types.error,
+  });
+}
+
+export default ErrorReport;
