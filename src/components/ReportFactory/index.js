@@ -1,18 +1,25 @@
 import types from '../../shared/reportTypes';
 import ErrorReport from './Report/ErrorReport';
-import CustomErrorReport from "../ErrorReport/CustomErrorReport";
+import StatReport from './Report/StatReport';
 
 class ReportFactory {
   static createErrorReport = ({ info, user }) => new ErrorReport({ info, user });
-  static createCustomReport = ({ info, user }) => new CustomErrorReport({ info, user });
+  static createStatReport = ({ info, user }) => new StatReport({ info, user });
 
   static create = ({ type, info, user, APIController }) => {
     const reportByType = {
       [types.error]: this.createErrorReport,
-      [types.custom]: this.createCustomReport,
+      [types.stat]: this.createStatReport,
     };
 
-    return reportByType[type]({ info, user });
+    const report = reportByType[type]({ info, user });
+    
+    APIController.report(report.serialize())
+      .then(res => {
+        if (!res) console.error('Report was not sended');
+      })
+
+    return report;
   }
 }
 

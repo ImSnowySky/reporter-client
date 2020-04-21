@@ -1,6 +1,6 @@
 const types = {
   error: 'error',
-  custom: 'custom',
+  stat: 'stat',
 };
 
 export default types;

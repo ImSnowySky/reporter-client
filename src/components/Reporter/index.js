@@ -35,36 +35,8 @@ class Reporter {
       return false;
     }
 
-    const _info = ReportFactory.create({ type, info, user: this.User, APIController: this.APIController }).serialize();
-    console.log(_info);
+    ReportFactory.create({ type, info, user: this.User, APIController: this.APIController });
   }
-
-  /*
-  generateError = (message, type) => {
-    const error = ErrorFactory.create(message, type);
-    fetchPolyfill(`${this.backend}/api/v1/error`, {
-      method: 'POST',
-      credentials: 'origin',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(error.info),
-    });
-    return error;
-  }
-
-  report = message => this.generateError(message, types.custom);
-
-  mountWatcher = async () => {
-    const backendExists = await this.isBackendExists();
-    if (!backendExists) return false;
-
-    const visitorID = await this.getVisitorID();
-    if (!visitorID) return false;
-
-    window.onerror = (errMsg, url, lineNumber) => this.generateError({ errMsg, url, lineNumber }, types.default);
-  }
-  */
 }
 
 export default Reporter;

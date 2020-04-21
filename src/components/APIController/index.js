@@ -18,14 +18,30 @@ class APIController {
     } catch (e) {
       return false;
     }
-  }
+  };
 
   registerUser = async () => {
     try {
       const response = await fetchPolyfill(`${this.backend}/api/v1/get_visitor_id`);
       const result = await response.json();
-      if (!result.status === 'OK') throw Error('Something went wrong while trying get user ID');
+      if (!result.status === 'OK') throw Error('Something went wrong while trying to get user ID');
       return result.response;
+    } catch (e) {
+      return false;
+    }
+  };
+
+  report = async reportInformation => {
+    try {
+      const response = await fetchPolyfill(`${this.backend}/api/v1/error`, {
+        method: 'POST',
+        credentials: 'origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: reportInformation,
+      });
+      const result = await response.json();
+      if (!result.status === 'OK') throw Error('Something went wrong while trying to send report information');
+      return true;
     } catch (e) {
       return false;
     }
