@@ -1,4 +1,5 @@
 import { fetch as fetchPolyfill } from 'whatwg-fetch'
+import * as Bowser from 'bowser';
 
 let controller = null;
 
@@ -22,7 +23,19 @@ class APIController {
 
   registerUser = async () => {
     try {
-      const response = await fetchPolyfill(`${this.backend}/api/v1/get_visitor_id`);
+      const { browser, os, platform } = Bowser.parse(window.navigator.userAgent);
+      const response = await fetchPolyfill(`${this.backend}/api/v1/visitor_id`, {
+        method: 'POST',
+        credentials: 'origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          browser: browser.name,
+          browser_version: browser.version,
+          os: os.name,
+          os_version: os.versionName,
+          platform: platform.type,
+        })
+      });
       const result = await response.json();
       if (!result.status === 'OK') throw Error('Something went wrong while trying to get user ID');
       return result.response;
