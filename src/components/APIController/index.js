@@ -34,6 +34,7 @@ class APIController {
           os: os.name,
           os_version: os.versionName,
           platform: platform.type,
+          user_agent: window.navigator.userAgent,
         })
       });
       const result = await response.json();
@@ -46,7 +47,7 @@ class APIController {
 
   report = async reportInformation => {
     try {
-      const response = await fetchPolyfill(`${this.backend}/api/v1/error`, {
+      const response = await fetchPolyfill(`${this.backend}/api/v1/report`, {
         method: 'POST',
         credentials: 'origin',
         headers: { 'Content-Type': 'application/json' },

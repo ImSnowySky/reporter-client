@@ -13,8 +13,7 @@ class StatReport extends Report {
   })
 
   getSummaryError = () => ({
-    ...this.getUA(),
-    ...this.getBrowserInfo(),
+    ...this.getTime(),
     ...this.getDisplayInfo(),
     ...this.getInformation(),
     type: types.stat,
