@@ -13,7 +13,7 @@ class ErrorReport extends Report {
   })
 
   getSummaryError = () => ({
-    ...this.getTime(),
+    ...this.getUserInfo(),
     ...this.getDisplayInfo(),
     ...this.getErrorInfo(),
     type: types.error,

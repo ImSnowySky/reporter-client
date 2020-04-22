@@ -1,14 +1,12 @@
-import * as Bowser from 'bowser';
-
 class Report {
   constructor({ info, user }) {
     this.info = info;
     this.user = user;
   }
 
-  getTime = () => ({
-    user_time: new Date().toUTCString(),
-    user_id: this.user.id,
+  getUserInfo = () => ({
+    user_time: new Date().toISOString(),
+    user_hash: this.user.id,
   });
 
   getDisplayInfo = () => ({
@@ -17,7 +15,7 @@ class Report {
   })
 
   getSummaryError = () => ({
-    ...this.getTime(),
+    ...this.getUserInfo(),
     ...this.getDisplayInfo(),
   });
 
