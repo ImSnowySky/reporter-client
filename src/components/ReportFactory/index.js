@@ -1,15 +1,15 @@
 import types from '../../shared/reportTypes';
 import ErrorReport from './Report/ErrorReport';
-import StatReport from './Report/StatReport';
+import BreadcrumbReport from './Report/BreadcrumbReport';
 
 class ReportFactory {
   static createErrorReport = ({ info, user }) => new ErrorReport({ info, user });
-  static createStatReport = ({ info, user }) => new StatReport({ info, user });
+  static createBreadcrumbReport = ({ info, user }) => new BreadcrumbReport({ info, user });
 
   static create = ({ type, info, user, APIController }) => {
     const reportByType = {
       [types.error]: this.createErrorReport,
-      [types.stat]: this.createStatReport,
+      [types.breadcrumb]: this.createBreadcrumbReport,
     };
 
     const report = reportByType[type]({ info, user });

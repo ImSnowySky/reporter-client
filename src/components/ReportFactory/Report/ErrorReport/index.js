@@ -7,7 +7,7 @@ class ErrorReport extends Report {
   }
 
   getErrorInfo = () => ({
-    url: this.info.url,
+    url: window.location.href,
     line_number: this.info.lineNumber,
     message: this.info.errMsg,
   })

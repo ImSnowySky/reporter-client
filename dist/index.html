@@ -13,7 +13,8 @@
   window.reporter = new Reporter({
     backend: 'http://localhost:5000',
     afterInit: reporter => {
-      window.onerror = (errMsg, url, lineNumber) => reporter.report({ errMsg, url, lineNumber });
+      window.onerror = (errMsg, url, lineNumber) => reporter.report({ errMsg, lineNumber });
+      reporter.report({ message: 'Privet' }, 'breadcrumb');
     }
   });
   window.setTimeout(() => nothing(), 500);

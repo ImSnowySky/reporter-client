@@ -1,6 +1,6 @@
 const types = {
   error: 'error',
-  stat: 'stat',
+  breadcrumb: 'breadcrumb',
 };
 
 export default types;

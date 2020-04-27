@@ -23,7 +23,7 @@ class APIController {
 
   isHashExists = async (hash) => {
     try {
-      const response = await fetchPolyfill(`${this.backend}/api/v1/visitor_hash_exists?hash=${hash}`);
+      const response = await fetchPolyfill(`${this.backend}/api/v1/visitor/hash_exists?hash=${hash}`);
       const result = await response.json();
       if (!result.status === 'OK') throw Error('Something went wrong while trying to get user ID');
       return result.response;
@@ -35,7 +35,7 @@ class APIController {
   registerUser = async () => {
     try {
       const { browser, os, platform } = Bowser.parse(window.navigator.userAgent);
-      const response = await fetchPolyfill(`${this.backend}/api/v1/visitor_id`, {
+      const response = await fetchPolyfill(`${this.backend}/api/v1/visitor/id`, {
         method: 'POST',
         credentials: 'origin',
         headers: { 'Content-Type': 'application/json' },

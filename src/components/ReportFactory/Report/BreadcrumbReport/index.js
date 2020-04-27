@@ -1,7 +1,7 @@
 import Report from '../index';
 import types from '../../../../shared/reportTypes';
 
-class StatReport extends Report {
+class BreadcrumbReport extends Report {
   constructor({ info, user }) {
     super({ info, user });
   }
@@ -9,15 +9,14 @@ class StatReport extends Report {
   getInformation = () => ({
     url: window.location.href,
     message: this.info.message,
-    additional: this.info.additional,
   })
 
   getSummaryError = () => ({
     ...this.getUserInfo(),
     ...this.getDisplayInfo(),
     ...this.getInformation(),
-    type: types.stat,
+    type: types.breadcrumb,
   });
 }
 
-export default StatReport;
+export default BreadcrumbReport;
