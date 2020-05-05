@@ -35,7 +35,7 @@ class APIController {
   registerUser = async () => {
     try {
       const { browser, os, platform } = Bowser.parse(window.navigator.userAgent);
-      const response = await fetchPolyfill(`${this.backend}/api/v1/visitor/id`, {
+      const response = await fetchPolyfill(`${this.backend}/api/v1/visitor/create`, {
         method: 'POST',
         credentials: 'origin',
         headers: { 'Content-Type': 'application/json' },
